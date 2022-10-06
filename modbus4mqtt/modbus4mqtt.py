@@ -86,7 +86,7 @@ class mqtt_interface():
         if self.use_tls:
             self._mqtt_client.tls_set(ca_certs=self.cafile, certfile=self.cert, keyfile=self.key)
             self._mqtt_client.tls_insecure_set(self.insecure)
-        self._mqtt_client.connect(self.hostname, self._port, 60)
+        self._mqtt_client.connect(self.hostname, self._port, 30)
         self._mqtt_client.loop_start()
 
     def _get_registers_with(self, required_key):
