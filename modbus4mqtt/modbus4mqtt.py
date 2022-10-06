@@ -78,6 +78,7 @@ class mqtt_interface():
     def connect_mqtt(self):
         self._mqtt_client = mqtt.Client()
         self._mqtt_client.username_pw_set(self.username, self.password)
+        self._mqtt_client.will_set('devices/pelletizer/LWT', payload='Offline', qos=0, retain=True)
         self._mqtt_client._on_connect = self._on_connect
         self._mqtt_client._on_disconnect = self._on_disconnect
         self._mqtt_client._on_message = self._on_message
@@ -162,6 +163,9 @@ class mqtt_interface():
             self._mqtt_client.subscribe(self.prefix+register['set_topic'])
             print("Subscribed to {}".format(self.prefix+register['set_topic']))
         #self._mqtt_client.publish(self.prefix+'modbus4mqtt', 'modbus4mqtt v{} connected.'.format(version.version))
+
+	# Let others know the this client is online.
+        self._mqtt_client.publish('devices/pelletizer/LWT', payload='Online', qos=0, retain=True)
 
     def _on_disconnect(self, client, userdata, rc):
         logging.warning("Disconnected from MQTT. Attempting to reconnect.")
