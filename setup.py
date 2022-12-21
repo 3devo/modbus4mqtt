@@ -17,7 +17,7 @@ setuptools.setup(
     install_requires=[
         'ruamel.yaml>=0.16.12',
         'paho-mqtt>=1.5.0',
-        'pymodbus>=2.3.0',
+        'pymodbus>=2.3.0,<3.0.0',
         'click>=6.7',
         'SungrowModbusTcpClient>=0.1.6',
     ],
